@@ -142,7 +142,7 @@
             android:layout_height="54dp"
             android:layout_marginTop="12dp"
             android:text="タイトルに戻る"
-            android:textColor="#202B3C"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"
             app:backgroundTint="#E8EDF3"
             app:cornerRadius="27dp" />
