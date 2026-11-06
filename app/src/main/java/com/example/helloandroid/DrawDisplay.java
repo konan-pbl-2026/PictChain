@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,11 +34,37 @@ public class DrawDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 描画画面を表示
         setContentView(R.layout.activity_draw_display);
 
         // 描画エリアを取得
         drawingView = findViewById(R.id.drawingView);
+
+        // ゲーム情報を取得
+        int playerCount =
+                getIntent().getIntExtra("playerCount", 6);
+
+        int roundCount =
+                getIntent().getIntExtra("roundCount", 1);
+
+        int currentTurn =
+                getIntent().getIntExtra("currentTurn", 0);
+
+        // 人数・週数を計算
+        int playerNumber =
+                (currentTurn % playerCount) + 1;
+
+        int roundNumber =
+                (currentTurn / playerCount) + 1;
+
+        // 人数・週数を表示
+        TextView playerText =
+                findViewById(R.id.playerText);
+
+        TextView roundText =
+                findViewById(R.id.roundText);
+
+        playerText.setText(playerNumber + "人目");
+        roundText.setText(roundNumber + "週目");
 
         // 色ボタン
         Button blackButton = findViewById(R.id.coller1);
@@ -53,7 +80,7 @@ public class DrawDisplay extends AppCompatActivity {
         Button backButton = findViewById(R.id.Back);
         Button moveOnButton = findViewById(R.id.move_on);
 
-        // 色を切り替える
+        // 色変更
         blackButton.setOnClickListener(v ->
                 drawingView.setDrawColor(Color.BLACK));
 
@@ -82,11 +109,7 @@ public class DrawDisplay extends AppCompatActivity {
         moveOnButton.setOnClickListener(v ->
                 drawingView.redo());
 
-        // 現在のターン
-        int currentTurn =
-                getIntent().getIntExtra("currentTurn", 0);
-
-        // 前の人の画像の保存場所
+        // 前の人の画像
         String previousImagePath =
                 getIntent().getStringExtra("previousImagePath");
 
@@ -139,7 +162,7 @@ public class DrawDisplay extends AppCompatActivity {
                     ConstraintLayout root =
                             (ConstraintLayout) drawingView.getParent();
 
-                    // 普段の表示位置：色ボタンの下
+                    // 通常の表示位置
                     ConstraintLayout.LayoutParams normalParams =
                             new ConstraintLayout.LayoutParams(
                                     dp(130),
@@ -157,19 +180,16 @@ public class DrawDisplay extends AppCompatActivity {
 
                     root.addView(previousImage, normalParams);
 
-                    // 押している間だけDrawingViewの上に表示
+                    // 押している間だけ大きく表示
                     previousImage.setOnTouchListener((v, event) -> {
 
                         switch (event.getAction()) {
 
                             case MotionEvent.ACTION_DOWN:
 
-                                // DrawingViewと同じ大きさにする
                                 ConstraintLayout.LayoutParams bigParams =
                                         new ConstraintLayout.LayoutParams(
-                                                0,
-                                                0
-                                        );
+                                                0, 0);
 
                                 bigParams.startToStart =
                                         R.id.drawingView;
@@ -185,7 +205,6 @@ public class DrawDisplay extends AppCompatActivity {
 
                                 previousImage.setLayoutParams(bigParams);
 
-                                // DrawingViewより手前に表示
                                 previousImage.setElevation(dp(20));
                                 previousImage.bringToFront();
 
@@ -194,12 +213,10 @@ public class DrawDisplay extends AppCompatActivity {
                             case MotionEvent.ACTION_UP:
                             case MotionEvent.ACTION_CANCEL:
 
-                                // 元の位置と大きさに戻す
                                 ConstraintLayout.LayoutParams smallParams =
                                         new ConstraintLayout.LayoutParams(
                                                 dp(130),
-                                                dp(100)
-                                        );
+                                                dp(100));
 
                                 smallParams.startToStart =
                                         ConstraintLayout.LayoutParams.PARENT_ID;
@@ -226,14 +243,13 @@ public class DrawDisplay extends AppCompatActivity {
         // 完了ボタン
         Button completeButton = findViewById(R.id.complete);
 
-        ArrayList<String> finalPictureNames = pictureNames;
-        ArrayList<String> finalImagePaths = imagePaths;
         completeButton.setOnClickListener(v -> {
 
             String imagePath = null;
 
             try {
-                // 描画内容を画像として取得
+
+                // 描画内容を画像にする
                 int width = drawingView.getWidth();
                 int height = drawingView.getHeight();
 
@@ -246,6 +262,7 @@ public class DrawDisplay extends AppCompatActivity {
                     );
 
                     Canvas canvas = new Canvas(bitmap);
+
                     drawingView.draw(canvas);
 
                     // 画像を保存
@@ -273,25 +290,24 @@ public class DrawDisplay extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            // 名前入力画面へ移動
+            // 名前入力画面へ
             Intent intent = new Intent(
                     DrawDisplay.this,
                     input_name.class
             );
 
-            intent.putExtra("playerCount",
-                    getIntent().getIntExtra("playerCount", 6));
-
-            intent.putExtra("roundCount",
-                    getIntent().getIntExtra("roundCount", 1));
-
+            intent.putExtra("playerCount", playerCount);
+            intent.putExtra("roundCount", roundCount);
             intent.putExtra("currentTurn", currentTurn);
 
-            // 保存した画像の場所を渡す
             intent.putExtra("previousImagePath", imagePath);
 
-            intent.putStringArrayListExtra("pictureNames", pictureNames);
-            intent.putStringArrayListExtra("imagePaths", imagePaths);
+            intent.putStringArrayListExtra(
+                    "pictureNames", pictureNames);
+
+            intent.putStringArrayListExtra(
+                    "imagePaths", imagePaths);
+
             startActivity(intent);
         });
     }
