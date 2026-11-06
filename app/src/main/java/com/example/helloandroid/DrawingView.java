@@ -1,4 +1,5 @@
 
+
 package com.example.helloandroid;
 
 import android.content.Context;
@@ -48,12 +49,10 @@ public class DrawingView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // 保存されている線をすべて描画
         for (Stroke s : strokes) {
             canvas.drawPath(s.path, s.paint);
         }
 
-        // 描画中の線
         if (currentPath != null) {
             canvas.drawPath(currentPath, currentPaint);
         }
@@ -70,13 +69,11 @@ public class DrawingView extends View {
 
             case MotionEvent.ACTION_DOWN:
 
-                // 新しい線を描いたら進む履歴を消す
                 undoneStrokes.clear();
 
                 currentPath = new Path();
                 currentPath.moveTo(x, y);
 
-                // 描き始めのペン設定を保存
                 currentPaint = new Paint();
                 currentPaint.setColor(currentColor);
                 currentPaint.setAntiAlias(true);
@@ -110,9 +107,7 @@ public class DrawingView extends View {
         return true;
     }
 
-    // -----------------------------
     // ペンの色を変更
-    // -----------------------------
     public void setColor(int color) {
         currentColor = color;
     }
@@ -121,23 +116,17 @@ public class DrawingView extends View {
         currentColor = color;
     }
 
-    // -----------------------------
     // ペンの太さを変更
-    // -----------------------------
     public void setWidth(float width) {
         currentWidth = width;
     }
 
-    // -----------------------------
     // 消しゴム
-    // -----------------------------
     public void setEraser() {
         currentColor = Color.WHITE;
     }
 
-    // -----------------------------
     // 全消去
-    // -----------------------------
     public void clearCanvas() {
         strokes.clear();
         undoneStrokes.clear();
@@ -146,9 +135,7 @@ public class DrawingView extends View {
         invalidate();
     }
 
-    // -----------------------------
-    // 一手戻る（Undo）
-    // -----------------------------
+    // 一手戻る
     public void undo() {
 
         if (!strokes.isEmpty()) {
@@ -162,9 +149,7 @@ public class DrawingView extends View {
         }
     }
 
-    // -----------------------------
-    // 一手進む（Redo）
-    // -----------------------------
+    // 一手進む
     public void redo() {
 
         if (!undoneStrokes.isEmpty()) {
@@ -176,5 +161,24 @@ public class DrawingView extends View {
 
             invalidate();
         }
+    }
+
+    // 描いた絵を画像として取得
+    public android.graphics.Bitmap getDrawingBitmap() {
+
+        android.graphics.Bitmap bitmap =
+                android.graphics.Bitmap.createBitmap(
+                        getWidth(),
+                        getHeight(),
+                        android.graphics.Bitmap.Config.ARGB_8888
+                );
+
+        Canvas canvas = new Canvas(bitmap);
+
+        canvas.drawColor(Color.WHITE);
+
+        draw(canvas);
+
+        return bitmap;
     }
 }
