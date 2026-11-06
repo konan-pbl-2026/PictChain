@@ -3,6 +3,7 @@ package com.example.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.app.AlertDialog;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -34,12 +35,13 @@ public class DrawDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 描画画面
         setContentView(R.layout.activity_draw_display);
 
-        // 描画エリアを取得
+        // 描画エリア
         drawingView = findViewById(R.id.drawingView);
 
-        // ゲーム情報を取得
+        // ゲーム情報
         int playerCount =
                 getIntent().getIntExtra("playerCount", 6);
 
@@ -72,13 +74,16 @@ public class DrawDisplay extends AppCompatActivity {
         Button yellowButton = findViewById(R.id.coller3);
         Button blueButton = findViewById(R.id.coller4);
 
-        // 消しゴム・全消去ボタン
+        // 消しゴム・全消去
         Button eraserButton = findViewById(R.id.eraser);
         Button eraseAllButton = findViewById(R.id.erase);
 
-        // 戻る・進むボタン
+        // 戻る・進む
         Button backButton = findViewById(R.id.Back);
         Button moveOnButton = findViewById(R.id.move_on);
+
+        // ホームボタン
+        Button homeButton = findViewById(R.id.homeButton);
 
         // 色変更
         blackButton.setOnClickListener(v ->
@@ -108,6 +113,38 @@ public class DrawDisplay extends AppCompatActivity {
         // 一手進む
         moveOnButton.setOnClickListener(v ->
                 drawingView.redo());
+
+        // ホームボタン
+        homeButton.setOnClickListener(v -> {
+
+            new AlertDialog.Builder(DrawDisplay.this)
+                    .setTitle("確認")
+                    .setMessage("本当にホームに戻りますか？")
+
+                    .setPositiveButton("OK", (dialog, which) -> {
+
+                        Intent intent = new Intent(
+                                DrawDisplay.this,
+                                StartDisplay.class
+                        );
+
+                        // 途中のゲーム画面を終了してホームへ
+                        intent.setFlags(
+                                Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                        Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        );
+
+                        startActivity(intent);
+                        finish();
+
+                    })
+
+                    .setNegativeButton("NO", (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+
+                    .show();
+        });
 
         // 前の人の画像
         String previousImagePath =

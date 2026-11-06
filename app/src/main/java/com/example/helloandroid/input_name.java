@@ -71,7 +71,6 @@ public class input_name extends AppCompatActivity {
                 imagePaths.add(imagePath);
             }
 
-            // 次のターン
             int nextTurn = currentTurn + 1;
 
             // 全員のターンが終了した場合
@@ -105,7 +104,6 @@ public class input_name extends AppCompatActivity {
                 intent.putExtra("roundCount", roundCount);
                 intent.putExtra("currentTurn", nextTurn);
 
-                // 前の人の画像
                 intent.putExtra("previousImagePath", imagePath);
 
                 intent.putStringArrayListExtra(
