@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class DrawDisplay extends AppCompatActivity {
 
@@ -88,6 +89,22 @@ public class DrawDisplay extends AppCompatActivity {
         // 前の人の画像の保存場所
         String previousImagePath =
                 getIntent().getStringExtra("previousImagePath");
+
+        ArrayList<String> receivedNames =
+                getIntent().getStringArrayListExtra("pictureNames");
+
+        ArrayList<String> receivedPaths =
+                getIntent().getStringArrayListExtra("imagePaths");
+
+        final ArrayList<String> pictureNames =
+                receivedNames != null
+                        ? receivedNames
+                        : new ArrayList<>();
+
+        final ArrayList<String> imagePaths =
+                receivedPaths != null
+                        ? receivedPaths
+                        : new ArrayList<>();
 
         // 2人目以降なら前の人の絵を表示
         if (currentTurn > 0 && previousImagePath != null) {
@@ -209,6 +226,8 @@ public class DrawDisplay extends AppCompatActivity {
         // 完了ボタン
         Button completeButton = findViewById(R.id.complete);
 
+        ArrayList<String> finalPictureNames = pictureNames;
+        ArrayList<String> finalImagePaths = imagePaths;
         completeButton.setOnClickListener(v -> {
 
             String imagePath = null;
@@ -271,6 +290,8 @@ public class DrawDisplay extends AppCompatActivity {
             // 保存した画像の場所を渡す
             intent.putExtra("previousImagePath", imagePath);
 
+            intent.putStringArrayListExtra("pictureNames", pictureNames);
+            intent.putStringArrayListExtra("imagePaths", imagePaths);
             startActivity(intent);
         });
     }
