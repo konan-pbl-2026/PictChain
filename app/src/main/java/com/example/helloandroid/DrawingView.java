@@ -1,5 +1,3 @@
-
-
 package com.example.helloandroid;
 
 import android.content.Context;
@@ -16,7 +14,6 @@ import java.util.List;
 
 public class DrawingView extends View {
 
-    // 描いた線を保存するクラス
     private static class Stroke {
         Path path;
         Paint paint;
@@ -27,16 +24,15 @@ public class DrawingView extends View {
         }
     }
 
-    // 描いた線の履歴
     private List<Stroke> strokes = new ArrayList<>();
-
-    // 戻した線の履歴
     private List<Stroke> undoneStrokes = new ArrayList<>();
+
+    // ★追加：全消去した直前の状態を保存しておく変数（全消去のUndo用）
+    private List<Stroke> clearedStrokesSnapshot = null;
 
     private Path currentPath;
     private Paint currentPaint;
 
-    // 初期設定
     private int currentColor = Color.BLACK;
     private float currentWidth = 12f;
 
@@ -44,7 +40,6 @@ public class DrawingView extends View {
         super(context, attrs);
     }
 
-    // 描画処理
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -58,17 +53,15 @@ public class DrawingView extends View {
         }
     }
 
-    // タッチ操作
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         float x = event.getX();
         float y = event.getY();
 
         switch (event.getAction()) {
-
             case MotionEvent.ACTION_DOWN:
-
+                // 新しい線を描き始めたら、全消去の復元データはクリアする
+                clearedStrokesSnapshot = null;
                 undoneStrokes.clear();
 
                 currentPath = new Path();
@@ -81,25 +74,20 @@ public class DrawingView extends View {
                 currentPaint.setStyle(Paint.Style.STROKE);
                 currentPaint.setStrokeJoin(Paint.Join.ROUND);
                 currentPaint.setStrokeCap(Paint.Cap.ROUND);
-
                 break;
 
             case MotionEvent.ACTION_MOVE:
-
                 if (currentPath != null) {
                     currentPath.lineTo(x, y);
                 }
-
                 break;
 
             case MotionEvent.ACTION_UP:
-
                 if (currentPath != null) {
                     strokes.add(new Stroke(currentPath, currentPaint));
                     currentPath = null;
                     currentPaint = null;
                 }
-
                 break;
         }
 
@@ -107,7 +95,6 @@ public class DrawingView extends View {
         return true;
     }
 
-    // ペンの色を変更
     public void setColor(int color) {
         currentColor = color;
     }
@@ -116,69 +103,45 @@ public class DrawingView extends View {
         currentColor = color;
     }
 
-    // ペンの太さを変更
     public void setWidth(float width) {
         currentWidth = width;
     }
 
-    // 消しゴム
     public void setEraser() {
         currentColor = Color.WHITE;
     }
 
-    // 全消去
+    // --- 変更：全消去（消す前の状態をスナップショットに保存する） ---
     public void clearCanvas() {
-        strokes.clear();
-        undoneStrokes.clear();
-        currentPath = null;
-        currentPaint = null;
-        invalidate();
-    }
-
-    // 一手戻る
-    public void undo() {
-
         if (!strokes.isEmpty()) {
+            clearedStrokesSnapshot = new ArrayList<>(strokes); // 状態を保持
+            strokes.clear();
+            undoneStrokes.clear();
+            currentPath = null;
+            currentPaint = null;
+            invalidate();
+        }
+    }
 
-            Stroke lastStroke =
-                    strokes.remove(strokes.size() - 1);
-
+    // --- 変更：一手戻る（全消去の取り消しにも対応させる） ---
+    public void undo() {
+        if (!strokes.isEmpty()) {
+            Stroke lastStroke = strokes.remove(strokes.size() - 1);
             undoneStrokes.add(lastStroke);
-
+            invalidate();
+        } else if (clearedStrokesSnapshot != null) {
+            // 画面が真っ白な状態で「戻る」が押されたら、全消去前の絵を復活させる！
+            strokes = clearedStrokesSnapshot;
+            clearedStrokesSnapshot = null;
             invalidate();
         }
     }
 
-    // 一手進む
     public void redo() {
-
         if (!undoneStrokes.isEmpty()) {
-
-            Stroke lastStroke =
-                    undoneStrokes.remove(undoneStrokes.size() - 1);
-
+            Stroke lastStroke = undoneStrokes.remove(undoneStrokes.size() - 1);
             strokes.add(lastStroke);
-
             invalidate();
         }
-    }
-
-    // 描いた絵を画像として取得
-    public android.graphics.Bitmap getDrawingBitmap() {
-
-        android.graphics.Bitmap bitmap =
-                android.graphics.Bitmap.createBitmap(
-                        getWidth(),
-                        getHeight(),
-                        android.graphics.Bitmap.Config.ARGB_8888
-                );
-
-        Canvas canvas = new Canvas(bitmap);
-
-        canvas.drawColor(Color.WHITE);
-
-        draw(canvas);
-
-        return bitmap;
     }
 }
