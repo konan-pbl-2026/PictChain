@@ -31,12 +31,49 @@ public class input_name extends AppCompatActivity {
                 return;
             }
 
-            Intent intent = new Intent(
-                    input_name.this, result_display.class);
 
-            intent.putExtra("pictureName", name);
+// DrawDisplayからゲーム情報を受け取る
+            int playerCount = getIntent().getIntExtra(
+                    "playerCount", 6);
 
-            startActivity(intent);
+            int roundCount = getIntent().getIntExtra(
+                    "roundCount", 1);
+
+            int currentTurn = getIntent().getIntExtra(
+                    "currentTurn", 0);
+
+// 今回のターンが終了
+            int nextTurn = currentTurn + 1;
+
+// 全員×周回数が終了したか確認
+            if (nextTurn >= playerCount * roundCount) {
+
+                // 結果発表画面へ
+                Intent intent = new Intent(
+                        input_name.this,
+                        result_display.class);
+
+                intent.putExtra("pictureName", name);
+                intent.putExtra("playerCount", playerCount);
+                intent.putExtra("roundCount", roundCount);
+
+                startActivity(intent);
+
+            } else {
+
+                // 次の人のお絵描き画面へ
+                Intent intent = new Intent(
+                        input_name.this,
+                        DrawDisplay.class);
+
+                intent.putExtra("pictureName", name);
+                intent.putExtra("playerCount", playerCount);
+                intent.putExtra("roundCount", roundCount);
+                intent.putExtra("currentTurn", nextTurn);
+
+                startActivity(intent);
+            }
+
         });
 
         backButton.setOnClickListener(v -> {
