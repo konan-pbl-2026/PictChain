@@ -21,6 +21,16 @@ public class result_display extends AppCompatActivity {
                     success_display.class
             );
 
+            intent.putStringArrayListExtra(
+                    "pictureNames",
+                    getIntent().getStringArrayListExtra("pictureNames")
+            );
+
+            intent.putStringArrayListExtra(
+                    "imagePaths",
+                    getIntent().getStringArrayListExtra("imagePaths")
+            );
+
             startActivity(intent);
         });
     }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,35 +14,25 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="みんなの絵ギャラリー"
+            android:text="みんなの作品"
             android:textSize="28sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:padding="20dp"
-            android:textColor="#6A1B9A"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="今回描いた絵を振り返ろう！"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:padding="10dp"/>
+            android:padding="20dp"/>
 
         <LinearLayout
             android:id="@+id/pictureContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp"/>
+            android:orientation="vertical"/>
 
         <Button
-            android:id="@+id/backButton"
+            android:id="@+id/pictureBackButton"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="結果画面に戻る"
-            android:layout_marginTop="25dp"/>
+            android:layout_height="wrap_content"
+            android:text="戻る"
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
-
 </ScrollView>
+

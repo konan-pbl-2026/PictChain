@@ -4,10 +4,12 @@ package com.example.helloandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.view.ViewGroup;
+import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
 
@@ -18,44 +20,63 @@ public class PictureDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_display);
 
-        LinearLayout pictureContainer =
+        LinearLayout container =
                 findViewById(R.id.pictureContainer);
 
         Button backButton =
-                findViewById(R.id.backButton);
+                findViewById(R.id.pictureBackButton);
 
-        // 絵の名前を受け取る
+        // 絵の名前と画像パスを受け取る
         ArrayList<String> pictureNames =
                 getIntent().getStringArrayListExtra("pictureNames");
 
-        // 名前がある場合
-        if (pictureNames != null && !pictureNames.isEmpty()) {
+        ArrayList<String> imagePaths =
+                getIntent().getStringArrayListExtra("imagePaths");
 
-            for (int i = 0; i < pictureNames.size(); i++) {
+        if (pictureNames == null || imagePaths == null) {
+            return;
+        }
 
-                TextView nameView = new TextView(this);
+        // 絵を順番に表示
+        int count = Math.min(
+                pictureNames.size(),
+                imagePaths.size()
+        );
 
-                nameView.setText(
-                        (i + 1) + "人目：" + pictureNames.get(i)
-                );
+        for (int i = 0; i < count; i++) {
 
-                nameView.setTextSize(20);
-                nameView.setPadding(15, 20, 15, 20);
+            // 絵の名前
+            TextView nameText = new TextView(this);
+            nameText.setText((i + 1) + "枚目：" + pictureNames.get(i));
+            nameText.setTextSize(20);
+            nameText.setPadding(0, 20, 0, 10);
 
-                pictureContainer.addView(nameView);
-            }
+            container.addView(nameText);
 
-        } else {
+            // 画像
+            ImageView imageView = new ImageView(this);
 
-            TextView emptyView = new TextView(this);
+            imageView.setImageBitmap(
+                    BitmapFactory.decodeFile(imagePaths.get(i))
+            );
 
-            emptyView.setText("まだ絵が登録されていません");
-            emptyView.setTextSize(18);
+            imageView.setScaleType(
+                    ImageView.ScaleType.FIT_CENTER
+            );
 
-            pictureContainer.addView(emptyView);
+            LinearLayout.LayoutParams params =
+                    new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            600
+                    );
+
+            params.bottomMargin = 30;
+
+            container.addView(imageView, params);
         }
 
         // 戻るボタン
         backButton.setOnClickListener(v -> finish());
     }
 }
+
