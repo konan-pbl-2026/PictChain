@@ -66,5 +66,31 @@ public class DrawDisplay extends AppCompatActivity {
         // 一手進む
         moveOnButton.setOnClickListener(v ->
                 drawingView.redo());
+
+        // 完了ボタン
+        Button completeButton = findViewById(R.id.complete);
+
+        completeButton.setOnClickListener(v -> {
+
+            // 名前入力画面へ移動
+            android.content.Intent intent =
+                    new android.content.Intent(
+                            DrawDisplay.this,
+                            input_name.class
+                    );
+
+            // ゲームの進行情報を引き継ぐ
+            intent.putExtra("playerCount",
+                    getIntent().getIntExtra("playerCount", 6));
+
+            intent.putExtra("roundCount",
+                    getIntent().getIntExtra("roundCount", 1));
+
+            intent.putExtra("currentTurn",
+                    getIntent().getIntExtra("currentTurn", 0));
+
+            startActivity(intent);
+        });
+
     }
 }
