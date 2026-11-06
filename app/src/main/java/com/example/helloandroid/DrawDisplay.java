@@ -1,3 +1,4 @@
+
 package com.example.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,13 +8,14 @@ import android.os.Bundle;
 import android.widget.Button;
 
 public class DrawDisplay extends AppCompatActivity {
+
     private DrawingView drawingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 班員が作った画面を表示
+        // 描画画面を表示
         setContentView(R.layout.activity_draw_display);
 
         // 描画エリアを取得
@@ -29,25 +31,40 @@ public class DrawDisplay extends AppCompatActivity {
         Button eraserButton = findViewById(R.id.eraser);
         Button eraseAllButton = findViewById(R.id.erase);
 
-        // 色を切り替える
+        // 戻る・進むボタン
+        Button backButton = findViewById(R.id.Back);
+        Button moveOnButton = findViewById(R.id.move_on);
+
+        // 黒色
         blackButton.setOnClickListener(v ->
                 drawingView.setDrawColor(Color.BLACK));
 
+        // 赤色
         redButton.setOnClickListener(v ->
                 drawingView.setDrawColor(Color.RED));
 
+        // 黄色
         yellowButton.setOnClickListener(v ->
                 drawingView.setDrawColor(Color.YELLOW));
 
+        // 青色
         blueButton.setOnClickListener(v ->
                 drawingView.setDrawColor(Color.BLUE));
 
-        // 消しゴム（白ペン）に切り替える
+        // 消しゴム
         eraserButton.setOnClickListener(v ->
                 drawingView.setEraser());
 
-        // 画面を全消去する
+        // 全消去
         eraseAllButton.setOnClickListener(v ->
                 drawingView.clearCanvas());
+
+        // 一手戻る
+        backButton.setOnClickListener(v ->
+                drawingView.undo());
+
+        // 一手進む
+        moveOnButton.setOnClickListener(v ->
+                drawingView.redo());
     }
 }
