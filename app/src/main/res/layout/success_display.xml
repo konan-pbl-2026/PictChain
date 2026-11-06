@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://android.com"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="20dp">
+
+        <!-- ヘッダー -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DRAWING BATTLE / RESULT"
+            android:textColor="#8494AF"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#DCE2EA" />
+
+        <!-- 結果タイトル -->
+        <TextView
+            android:id="@+id/resultTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="GAME CLEAR"
+            android:textColor="#202B3C"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/resultMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="CHAIN COMPLETE"
+            android:textColor="#2196D2"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- トロフィー -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="🏆"
+            android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="しりとり成功！！"
+            android:textColor="#2196D2"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="全員の絵が最後までつながりました"
+            android:textColor="#8494AF"
+            android:textSize="12sp" />
+
+        <!-- 成功情報 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="#F1F4F8"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RESULT"
+                android:textColor="#8494AF"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/failurePosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#2196D2"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:text="100% COMPLETE" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="ALL PLAYERS SUCCESS!"
+                android:textColor="#202B3C"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- 履歴用のコンテナ -->
+        <LinearLayout
+            android:id="@+id/historyContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" />
+
+        <!-- もう一度遊ぶ ボタン（丸みのある紫ボタン） -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/retryButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:text="もう一度遊ぶ"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:backgroundTint="#7D51CC"
+            app:cornerRadius="28dp" />
+
+        <!-- タイトルに戻る ボタン（丸みのある薄グレーボタン） -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/homeButton"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="12dp"
+            android:text="タイトルに戻る"
+            android:textColor="#202B3C"
+            android:textStyle="bold"
+            app:backgroundTint="#E8EDF3"
+            app:cornerRadius="27dp" />
+
+        <!-- 自分たちの絵を見る ボタン（丸みのある濃い紫ボタン） -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:text="自分たちの絵を見る"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:backgroundTint="#6A1B9A"
+            app:cornerRadius="28dp" />
+
+    </LinearLayout>
+</ScrollView>
