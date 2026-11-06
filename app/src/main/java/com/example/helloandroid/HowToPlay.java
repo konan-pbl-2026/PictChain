@@ -28,48 +28,49 @@ public class HowToPlay extends AppCompatActivity {
         // 画面全体
         FrameLayout root = new FrameLayout(this);
 
-        // おもちゃ部屋の壁紙風背景
-        GradientDrawable wallpaper = new GradientDrawable(
-                GradientDrawable.Orientation.TOP_BOTTOM,
+        // 明るいブルーとパープルの背景
+        GradientDrawable background = new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.rgb(174, 222, 255),
-                        Color.rgb(218, 239, 255),
-                        Color.rgb(255, 220, 169)
+                        Color.rgb(210, 237, 255),
+                        Color.rgb(232, 229, 255),
+                        Color.rgb(245, 239, 255)
                 }
         );
 
-        root.setBackground(wallpaper);
+        root.setBackground(background);
 
-        // 背景のおもちゃ
-        addDecoration(root, "🧸", 34,
-                Gravity.TOP | Gravity.START, 2, 20);
+        // 背景の装飾
+        addDecoration(root, "✦", 38,
+                Color.rgb(112, 155, 235),
+                Gravity.TOP | Gravity.START);
 
-        addDecoration(root, "⭐", 30,
-                Gravity.TOP | Gravity.END, 2, 75);
+        addDecoration(root, "◇", 40,
+                Color.rgb(155, 126, 220),
+                Gravity.TOP | Gravity.END);
 
-        addDecoration(root, "🧩", 30,
-                Gravity.CENTER_VERTICAL | Gravity.START, 0, 0);
+        addDecoration(root, "✧", 35,
+                Color.rgb(94, 174, 235),
+                Gravity.CENTER_VERTICAL | Gravity.START);
 
-        addDecoration(root, "🚀", 32,
-                Gravity.CENTER_VERTICAL | Gravity.END, 0, 0);
+        addDecoration(root, "◆", 32,
+                Color.rgb(151, 132, 225),
+                Gravity.BOTTOM | Gravity.END);
 
-        addDecoration(root, "🚗", 32,
-                Gravity.BOTTOM | Gravity.START, 2, 25);
-
-        addDecoration(root, "⚽", 34,
-                Gravity.BOTTOM | Gravity.END, 2, 30);
-
-        // 説明部分のパネル
+        // メインパネル
         LinearLayout panel = new LinearLayout(this);
         panel.setOrientation(LinearLayout.VERTICAL);
-        panel.setPadding(
-                dp(18), dp(16), dp(18), dp(14));
 
-        GradientDrawable panelBackground = new GradientDrawable();
-        panelBackground.setColor(Color.rgb(255, 250, 235));
+        panel.setPadding(
+                dp(18), dp(15), dp(18), dp(14));
+
+        GradientDrawable panelBackground =
+                new GradientDrawable();
+
+        panelBackground.setColor(Color.WHITE);
         panelBackground.setCornerRadius(dp(22));
         panelBackground.setStroke(
-                dp(3), Color.rgb(145, 102, 202));
+                dp(2), Color.rgb(167, 151, 231));
 
         panel.setBackground(panelBackground);
         panel.setElevation(dp(8));
@@ -81,20 +82,33 @@ public class HowToPlay extends AppCompatActivity {
                 );
 
         panelParams.setMargins(
-                dp(18), dp(12), dp(18), dp(12));
+                dp(16), dp(14), dp(16), dp(14));
 
         root.addView(panel, panelParams);
 
         // タイトル
         TextView title = new TextView(this);
-        title.setText("🎮 遊び方 🎨");
-        title.setTextSize(28);
-        title.setTextColor(Color.rgb(91, 48, 145));
+
+        title.setText("✦ 遊び方 ✦");
+        title.setTextSize(29);
+        title.setTextColor(Color.rgb(81, 74, 165));
         title.setTypeface(null, Typeface.BOLD);
         title.setGravity(Gravity.CENTER);
-        title.setPadding(0, dp(5), 0, dp(18));
+        title.setPadding(0, dp(5), 0, dp(2));
 
         panel.addView(title);
+
+        // サブタイトル
+        TextView subtitle = new TextView(this);
+
+        subtitle.setText("ENGLISH PICTURE SHIRITORI");
+        subtitle.setTextSize(11);
+        subtitle.setTextColor(Color.rgb(77, 139, 211));
+        subtitle.setTypeface(null, Typeface.BOLD);
+        subtitle.setGravity(Gravity.CENTER);
+        subtitle.setPadding(0, 0, 0, dp(16));
+
+        panel.addView(subtitle);
 
         // スクロールできる説明部分
         ScrollView scrollView = new ScrollView(this);
@@ -103,43 +117,57 @@ public class HowToPlay extends AppCompatActivity {
         content.setOrientation(LinearLayout.VERTICAL);
 
         // ゲームの説明
-        addHeading(content, "英語の絵しりとり");
+        addHeading(content, "ENGLISH SHIRITORI", true);
 
         addBody(content,
                 "このゲームは、英単語を使って絵しりとりを楽しむゲームです。前の人が描いた絵を見て、英単語の最後のアルファベットから始まる絵を描いていきます。");
 
         // STEP 1
-        addHeading(content, "① 最初の人が絵を描く");
+        addHeading(content, "01　最初の人が絵を描く", false);
 
         addBody(content,
                 "最初の人は、好きな英単語を1つ決めて、その言葉を表す絵を描きます。");
 
         // STEP 2
-        addHeading(content, "② 次の人に交代する");
+        addHeading(content, "02　次の人に交代する", true);
 
         addBody(content,
                 "描き終わったら、絵の名前を英語で入力します。入力が終わると、次の人に交代します。");
 
         // STEP 3
-        addHeading(content, "③ 前の人の絵につなげる");
+        addHeading(content, "03　前の人の絵につなげる", false);
 
         addBody(content,
                 "次の人は、前の人が描いた絵から英単語を考えます。その英単語の最後のアルファベットから始まる言葉を考えて、新しい絵を描きます。");
 
         // STEP 4
-        addHeading(content, "④ 例えばこんな感じ！");
+        addHeading(content, "04　例えばこんな感じ！", true);
 
         TextView example = new TextView(this);
-        example.setText("APPLE → ELEPHANT → TIGER → RABBIT");
-        example.setTextSize(16);
-        example.setTextColor(Color.rgb(75, 48, 115));
+
+        example.setText(
+                "APPLE → ELEPHANT → TIGER → RABBIT");
+
+        example.setTextSize(15);
+        example.setTextColor(Color.rgb(78, 83, 166));
         example.setTypeface(null, Typeface.BOLD);
         example.setGravity(Gravity.CENTER);
-        example.setPadding(dp(6), dp(12), dp(6), dp(12));
+        example.setPadding(
+                dp(5), dp(15), dp(5), dp(15));
 
-        GradientDrawable exampleBackground = new GradientDrawable();
-        exampleBackground.setColor(Color.rgb(255, 229, 151));
-        exampleBackground.setCornerRadius(dp(16));
+        GradientDrawable exampleBackground =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.LEFT_RIGHT,
+                        new int[]{
+                                Color.rgb(221, 241, 255),
+                                Color.rgb(237, 229, 255)
+                        }
+                );
+
+        exampleBackground.setCornerRadius(dp(14));
+        exampleBackground.setStroke(
+                dp(1), Color.rgb(177, 166, 235));
+
         example.setBackground(exampleBackground);
 
         LinearLayout.LayoutParams exampleParams =
@@ -148,20 +176,35 @@ public class HowToPlay extends AppCompatActivity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        exampleParams.setMargins(0, dp(4), 0, dp(10));
+        exampleParams.setMargins(
+                0, dp(5), 0, dp(8));
+
         content.addView(example, exampleParams);
 
         addBody(content,
                 "APPLEの最後は「E」なので、次はEから始まるELEPHANT。ELEPHANTの最後は「T」なので、次はTから始まるTIGERを描きます。");
 
         // STEP 5
-        addHeading(content, "⑤ ゲームの注意点");
+        addHeading(content, "05　ゲームの注意点", false);
 
         addBody(content,
                 "本当のしりとりとは違い、単語の最後に「N」が付いても負けにはなりません。Nから始まる英単語を考えて、次につなげましょう。");
 
-        addBody(content,
-                "このように、順番に絵を描いて英単語をつなげていきます。みんなで協力して最後まで楽しみましょう！");
+        // 最後のメッセージ
+        TextView message = new TextView(this);
+
+        message.setText(
+                "みんなで協力して、最後まで絵しりとりを楽しもう！");
+
+        message.setTextSize(16);
+        message.setTextColor(Color.rgb(104, 91, 190));
+        message.setTypeface(null, Typeface.BOLD);
+        message.setGravity(Gravity.CENTER);
+
+        message.setPadding(
+                dp(5), dp(18), dp(5), dp(18));
+
+        content.addView(message);
 
         scrollView.addView(content);
 
@@ -176,17 +219,26 @@ public class HowToPlay extends AppCompatActivity {
 
         // 戻るボタン
         Button backButton = new Button(this);
+
         backButton.setText("戻る");
-        backButton.setTextSize(18);
+        backButton.setTextSize(17);
         backButton.setTextColor(Color.WHITE);
+        backButton.setTypeface(null, Typeface.BOLD);
         backButton.setAllCaps(false);
 
-        GradientDrawable buttonBackground = new GradientDrawable();
-        buttonBackground.setColor(Color.rgb(126, 76, 185));
-        buttonBackground.setCornerRadius(dp(25));
+        GradientDrawable buttonBackground =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.LEFT_RIGHT,
+                        new int[]{
+                                Color.rgb(67, 139, 226),
+                                Color.rgb(132, 104, 210)
+                        }
+                );
+
+        buttonBackground.setCornerRadius(dp(18));
 
         backButton.setBackground(buttonBackground);
-        backButton.setElevation(dp(4));
+        backButton.setElevation(dp(5));
 
         backButton.setOnClickListener(v -> finish());
 
@@ -196,37 +248,36 @@ public class HowToPlay extends AppCompatActivity {
                         dp(52)
                 );
 
-        buttonParams.setMargins(0, dp(12), 0, 0);
+        buttonParams.setMargins(
+                0, dp(12), 0, 0);
 
         panel.addView(backButton, buttonParams);
 
         setContentView(root);
     }
 
-    // 背景におもちゃを置く
+    // 背景の装飾
     private void addDecoration(
             FrameLayout root,
-            String emoji,
+            String symbol,
             int size,
-            int gravity,
-            int horizontalMargin,
-            int verticalMargin) {
+            int color,
+            int gravity) {
 
         TextView decoration = new TextView(this);
-        decoration.setText(emoji);
+
+        decoration.setText(symbol);
         decoration.setTextSize(size);
+        decoration.setTextColor(color);
         decoration.setGravity(Gravity.CENTER);
+        decoration.setAlpha(0.55f);
 
         FrameLayout.LayoutParams params =
                 new FrameLayout.LayoutParams(
-                        dp(48), dp(48), gravity);
+                        dp(55), dp(55), gravity);
 
         params.setMargins(
-                dp(horizontalMargin),
-                dp(verticalMargin),
-                dp(horizontalMargin),
-                dp(verticalMargin)
-        );
+                dp(4), dp(20), dp(4), dp(20));
 
         root.addView(decoration, params);
     }
@@ -234,24 +285,37 @@ public class HowToPlay extends AppCompatActivity {
     // 見出し
     private void addHeading(
             LinearLayout layout,
-            String text) {
+            String text,
+            boolean blue) {
 
         TextView heading = new TextView(this);
 
         heading.setText(text);
         heading.setTextSize(17);
-        heading.setTextColor(Color.rgb(85, 48, 132));
+        heading.setTextColor(Color.WHITE);
         heading.setTypeface(null, Typeface.BOLD);
         heading.setPadding(
-                dp(12), dp(10), dp(12), dp(10));
+                dp(12), dp(11), dp(12), dp(11));
 
-        GradientDrawable background = new GradientDrawable();
-        background.setColor(Color.rgb(231, 215, 255));
-        background.setCornerRadius(dp(18));
-        background.setStroke(
-                dp(1), Color.rgb(183, 148, 225));
+        int colorStart;
+        int colorEnd;
 
-        heading.setBackground(background);
+        if (blue) {
+            colorStart = Color.rgb(65, 143, 231);
+            colorEnd = Color.rgb(83, 119, 217);
+        } else {
+            colorStart = Color.rgb(132, 111, 215);
+            colorEnd = Color.rgb(157, 129, 222);
+        }
+
+        GradientDrawable headingBackground =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.LEFT_RIGHT,
+                        new int[]{colorStart, colorEnd}
+                );
+
+        headingBackground.setCornerRadius(dp(12));
+        heading.setBackground(headingBackground);
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
@@ -259,7 +323,7 @@ public class HowToPlay extends AppCompatActivity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        params.setMargins(0, dp(10), 0, dp(5));
+        params.setMargins(0, dp(12), 0, dp(5));
 
         layout.addView(heading, params);
     }
@@ -273,10 +337,10 @@ public class HowToPlay extends AppCompatActivity {
 
         body.setText(text);
         body.setTextSize(16);
-        body.setTextColor(Color.rgb(55, 49, 65));
+        body.setTextColor(Color.rgb(44, 59, 87));
         body.setLineSpacing(dp(4), 1.0f);
         body.setPadding(
-                dp(5), dp(7), dp(5), dp(9));
+                dp(5), dp(7), dp(5), dp(10));
 
         layout.addView(body);
     }
