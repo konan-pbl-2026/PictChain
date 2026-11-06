@@ -58,4 +58,7 @@ public class DrawingView extends View {
         path.reset();
         invalidate();
     }
+
+    public void setDrawColor(int blue) {
+    }
 }
