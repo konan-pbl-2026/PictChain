@@ -30,6 +30,10 @@
             android:name=".PlayerSelect"
             android:exported="false" />
         <activity
+            android:name=".PictureDisplay" />
+        <activity
+            android:name=".success_display" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
