@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.widget.Button;
 
 public class DrawDisplay extends AppCompatActivity {
-  private DrawingView drawingView;
+    private DrawingView drawingView;
 
     @Override
-       protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // 班員が作った画面を表示
@@ -25,6 +25,10 @@ public class DrawDisplay extends AppCompatActivity {
         Button yellowButton = findViewById(R.id.coller3);
         Button blueButton = findViewById(R.id.coller4);
 
+        // 消しゴム・全消去ボタン
+        Button eraserButton = findViewById(R.id.eraser);
+        Button eraseAllButton = findViewById(R.id.erase);
+
         // 色を切り替える
         blackButton.setOnClickListener(v ->
                 drawingView.setDrawColor(Color.BLACK));
@@ -37,6 +41,13 @@ public class DrawDisplay extends AppCompatActivity {
 
         blueButton.setOnClickListener(v ->
                 drawingView.setDrawColor(Color.BLUE));
-    }
 
+        // 消しゴム（白ペン）に切り替える
+        eraserButton.setOnClickListener(v ->
+                drawingView.setEraser());
+
+        // 画面を全消去する
+        eraseAllButton.setOnClickListener(v ->
+                drawingView.clearCanvas());
+    }
 }

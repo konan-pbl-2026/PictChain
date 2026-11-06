@@ -107,6 +107,7 @@ public class DrawingView extends View {
         invalidate();
     }
 
-    public void setDrawColor(int blue) {
+    public void setDrawColor(int color) {
+        currentColor = color; // メンバーが送ってきた色をペンに反映する
     }
 }
