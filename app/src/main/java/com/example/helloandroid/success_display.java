@@ -1,8 +1,10 @@
+
 package com.example.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.graphics.Color;
 import android.widget.TextView;
 import android.widget.Button;
 import android.content.Intent;
@@ -18,45 +20,76 @@ public class success_display extends AppCompatActivity {
         TextView rate = findViewById(R.id.failurePosition);
         TextView message = findViewById(R.id.resultMessage);
 
-        Button pictureButton =
-                findViewById(R.id.button);
+        TextView icon = findViewById(R.id.resultIcon);
+        TextView subTitle = findViewById(R.id.resultSubTitle);
+        TextView description = findViewById(R.id.resultDescription);
 
-        // 成功回数と総回数を受け取る
+        Button pictureButton = findViewById(R.id.button);
+
         int successCount = getIntent().getIntExtra(
                 "successCount", 0);
 
         int totalCount = getIntent().getIntExtra(
                 "totalCount", 0);
 
-        // 成功率を計算
-        double percentage = 0;
+        int percentage = getIntent().getIntExtra(
+                "percentage", 0);
 
-        if (totalCount > 0) {
-            percentage =
-                    (double) successCount / totalCount * 100;
-        }
+        // 成功率表示
+        rate.setText(
+                percentage + "% COMPLETE\n"
+                        + successCount + " / " + totalCount + " 成功"
+        );
 
-        int result = (int) Math.round(percentage);
+        // 100%の場合
+        if (percentage == 100 && totalCount > 0) {
 
-        rate.setText(result + "%");
+            title.setText("CHAIN COMPLETE");
+            title.setTextColor(Color.rgb(32, 43, 60));
 
-        // 成功率によって表示変更
-        if (result >= 80) {
+            message.setText("PERFECT!!");
+            message.setTextColor(Color.rgb(33, 150, 210));
 
-            title.setText("🎉 大成功！！ 🎉");
-            message.setText("素晴らしい！最高の絵しりとり！");
+            icon.setText("🏆");
 
-        } else if (result >= 50) {
+            subTitle.setText("しりとり完全成功！！");
 
-            title.setText("👏 よくできました！");
-            message.setText("なかなかいい調子！");
+            description.setText(
+                    "全員の絵が最後までつながりました！"
+            );
+
+            rate.setTextColor(Color.rgb(33, 150, 210));
 
         } else {
 
-            title.setText("💪 おしい！！");
-            message.setText("次はもっとつなげよう！");
+            // 100%未満の場合
+            title.setText("CHAIN DISCONNECTED");
+            title.setTextColor(Color.rgb(229, 57, 53));
+
+            message.setText("GAME OVER");
+            message.setTextColor(Color.rgb(229, 57, 53));
+
+            icon.setText("💥");
+
+            subTitle.setText("しりとりが途切れました");
+
+            if (percentage >= 75) {
+
+                description.setText(
+                        "おしい！！あと少しで完全成功でした！"
+                );
+
+            } else {
+
+                description.setText(
+                        "もう少し！次は最後までつなげよう！"
+                );
+            }
+
+            rate.setTextColor(Color.rgb(229, 57, 53));
         }
 
+        // 絵を見るボタン
         pictureButton.setOnClickListener(v -> {
 
             Intent intent = new Intent(
@@ -76,6 +109,48 @@ public class success_display extends AppCompatActivity {
 
             startActivity(intent);
         });
+
+
+        // もう一度遊ぶボタン
+        Button retryButton = findViewById(R.id.retryButton);
+
+        retryButton.setOnClickListener(v -> {
+
+            Intent intent = new Intent(
+                    success_display.this,
+                    PlayerSelect.class
+            );
+
+            // 以前のゲーム画面を終了して新しく始める
+            intent.setFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+            );
+
+            startActivity(intent);
+            finish();
+        });
+
+        // タイトルに戻るボタン
+        Button homeButton = findViewById(R.id.homeButton);
+
+        homeButton.setOnClickListener(v -> {
+
+            Intent intent = new Intent(
+                    success_display.this,
+                    MainActivity.class
+            );
+
+            intent.setFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+            );
+
+            startActivity(intent);
+            finish();
+        });
+
     }
 }
+
 

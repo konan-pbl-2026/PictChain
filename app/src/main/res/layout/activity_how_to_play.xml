@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".HowToPlay">
 
-    <Button
+    <!-- ★ ここを Button から com.example.helloandroid.SoundButton に変更 -->
+    <com.example.helloandroid.SoundButton
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
