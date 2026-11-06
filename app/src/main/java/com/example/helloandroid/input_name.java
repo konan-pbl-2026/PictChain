@@ -1,3 +1,4 @@
+
 package com.example.helloandroid;
 
 import android.os.Bundle;
@@ -22,15 +23,20 @@ public class input_name extends AppCompatActivity {
         Button backButton = findViewById(R.id.backButton);
 
         // ゲーム情報を受け取る
-        int playerCount = getIntent().getIntExtra("playerCount", 6);
-        int roundCount = getIntent().getIntExtra("roundCount", 1);
-        int currentTurn = getIntent().getIntExtra("currentTurn", 0);
+        int playerCount =
+                getIntent().getIntExtra("playerCount", 6);
+
+        int roundCount =
+                getIntent().getIntExtra("roundCount", 1);
+
+        int currentTurn =
+                getIntent().getIntExtra("currentTurn", 0);
 
         // 今回描いた画像の保存場所
         String imagePath =
                 getIntent().getStringExtra("previousImagePath");
 
-        // これまでの名前と画像パスを受け取る
+        // 名前と画像パスを受け取る
         ArrayList<String> receivedNames =
                 getIntent().getStringArrayListExtra("pictureNames");
 
@@ -58,13 +64,14 @@ public class input_name extends AppCompatActivity {
                 return;
             }
 
-            // 今回の名前と画像を保存
+            // 名前と画像を保存
             pictureNames.add(name);
 
             if (imagePath != null) {
                 imagePaths.add(imagePath);
             }
 
+            // 次のターン
             int nextTurn = currentTurn + 1;
 
             // 全員のターンが終了した場合
@@ -98,6 +105,7 @@ public class input_name extends AppCompatActivity {
                 intent.putExtra("roundCount", roundCount);
                 intent.putExtra("currentTurn", nextTurn);
 
+                // 前の人の画像
                 intent.putExtra("previousImagePath", imagePath);
 
                 intent.putStringArrayListExtra(
@@ -110,6 +118,7 @@ public class input_name extends AppCompatActivity {
             }
         });
 
+        // 戻る
         backButton.setOnClickListener(v -> finish());
     }
 }
