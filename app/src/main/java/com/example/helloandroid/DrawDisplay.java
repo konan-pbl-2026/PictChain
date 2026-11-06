@@ -2,13 +2,15 @@ package com.example.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Button;
 
 public class DrawDisplay extends AppCompatActivity {
-  /*  private DrawingView drawingView;
+  private DrawingView drawingView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+       protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // 班員が作った画面を表示
@@ -36,11 +38,5 @@ public class DrawDisplay extends AppCompatActivity {
         blueButton.setOnClickListener(v ->
                 drawingView.setDrawColor(Color.BLUE));
     }
-}*/
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_draw_display);
-    }
 }
