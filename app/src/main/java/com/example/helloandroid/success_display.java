@@ -59,12 +59,22 @@ public class success_display extends AppCompatActivity {
 
         pictureButton.setOnClickListener(v -> {
 
-       Intent intent = new Intent(
-               success_display.this,
-              PictureDisplay.class
-       );
+            Intent intent = new Intent(
+                    success_display.this,
+                    PictureDisplay.class
+            );
 
-       startActivity(intent);
+            intent.putStringArrayListExtra(
+                    "pictureNames",
+                    getIntent().getStringArrayListExtra("pictureNames")
+            );
+
+            intent.putStringArrayListExtra(
+                    "imagePaths",
+                    getIntent().getStringArrayListExtra("imagePaths")
+            );
+
+            startActivity(intent);
         });
     }
 }
