@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +13,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Button;
+import android.widget.ImageButton; // ★ImageButtonをインポート
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -68,21 +68,21 @@ public class DrawDisplay extends AppCompatActivity {
         playerText.setText(playerNumber + "人目");
         roundText.setText(roundNumber + "週目");
 
-        // 色ボタン
-        Button blackButton = findViewById(R.id.coller1);
-        Button redButton = findViewById(R.id.coller2);
-        Button yellowButton = findViewById(R.id.coller3);
-        Button blueButton = findViewById(R.id.coller4);
+        // ★色ボタン（ImageButtonに変更）
+        ImageButton blackButton = findViewById(R.id.coller1);
+        ImageButton redButton = findViewById(R.id.coller2);
+        ImageButton yellowButton = findViewById(R.id.coller3);
+        ImageButton blueButton = findViewById(R.id.coller4);
 
-        // 消しゴム・全消去
-        Button eraserButton = findViewById(R.id.eraser);
-        Button eraseAllButton = findViewById(R.id.erase);
+        // ★消しゴム・全消去（ImageButtonに変更）
+        ImageButton eraserButton = findViewById(R.id.eraser);
+        ImageButton eraseAllButton = findViewById(R.id.erase);
 
-        // 戻る・進む
-        Button backButton = findViewById(R.id.Back);
-        Button moveOnButton = findViewById(R.id.move_on);
+        // ★戻る・進む（ImageButtonに変更）
+        ImageButton backButton = findViewById(R.id.Back);
+        ImageButton moveOnButton = findViewById(R.id.move_on);
 
-        // ホームボタン
+        // ホームボタン（通常のButtonのまま）
         Button homeButton = findViewById(R.id.homeButton);
 
         // 色変更
@@ -277,8 +277,8 @@ public class DrawDisplay extends AppCompatActivity {
             }
         }
 
-        // 完了ボタン
-        Button completeButton = findViewById(R.id.complete);
+        // ★完了ボタン（ImageButtonに変更）
+        ImageButton completeButton = findViewById(R.id.complete);
 
         completeButton.setOnClickListener(v -> {
 
