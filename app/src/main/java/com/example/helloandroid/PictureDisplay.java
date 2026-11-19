@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,7 +75,10 @@ public class PictureDisplay extends AppCompatActivity {
         }
 
         // 戻るボタン
-        backButton.setOnClickListener(v -> finish());
+        backButton.setOnClickListener(v -> {
+            // ★ここでクリック音を鳴らす！
+            SoundPlayer.play(v.getContext());
+            finish();
+        });
     }
 }
-

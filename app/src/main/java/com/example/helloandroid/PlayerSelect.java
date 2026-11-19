@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import android.content.Intent;
@@ -38,6 +37,8 @@ public class PlayerSelect extends AppCompatActivity {
                 findViewById(R.id.Gamestart);
 
         startButton.setOnClickListener(v -> {
+            // ★ここでクリック音を鳴らす！
+            SoundPlayer.play(v.getContext());
 
             // 選択した人数
             int playerCount =

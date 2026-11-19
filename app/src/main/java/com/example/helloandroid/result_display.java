@@ -6,12 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.widget.Button;
-import android.content.Intent;
-
 import java.util.ArrayList;
 
 public class result_display extends AppCompatActivity {
@@ -24,6 +18,8 @@ public class result_display extends AppCompatActivity {
         Button resultButton = findViewById(R.id.button3);
 
         resultButton.setOnClickListener(v -> {
+            // ★ここでクリック音を鳴らす！
+            SoundPlayer.play(v.getContext());
 
             ArrayList<String> pictureNames =
                     getIntent().getStringArrayListExtra("pictureNames");

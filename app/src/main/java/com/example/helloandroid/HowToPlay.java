@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import android.graphics.Color;
@@ -188,7 +187,11 @@ public class HowToPlay extends AppCompatActivity {
         backButton.setBackground(buttonBackground);
         backButton.setElevation(dp(4));
 
-        backButton.setOnClickListener(v -> finish());
+        // ★ ここでクリック音を鳴らすように修正！
+        backButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
+            finish();
+        });
 
         LinearLayout.LayoutParams buttonParams =
                 new LinearLayout.LayoutParams(

@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import android.os.Bundle;
@@ -54,6 +53,8 @@ public class input_name extends AppCompatActivity {
                         : new ArrayList<>();
 
         decideButton.setOnClickListener(v -> {
+            // ★ここでクリック音を鳴らす！
+            SoundPlayer.play(v.getContext());
 
             String name = nameInput.getText().toString().trim();
 
@@ -117,6 +118,10 @@ public class input_name extends AppCompatActivity {
         });
 
         // 戻る
-        backButton.setOnClickListener(v -> finish());
+        backButton.setOnClickListener(v -> {
+            // ★ここでもクリック音を鳴らす！
+            SoundPlayer.play(v.getContext());
+            finish();
+        });
     }
 }

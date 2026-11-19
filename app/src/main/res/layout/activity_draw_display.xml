@@ -56,21 +56,21 @@
 
     <Button
         android:id="@+id/coller1"
-        android:layout_width="88dp"
-        android:layout_height="43dp"
-        android:text="色"
+        android:layout_width="92dp"
+        android:layout_height="48dp"
+        android:text="黒"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintHorizontal_bias="0.166"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774" />
+        app:layout_constraintVertical_bias="0.78" />
 
     <Button
         android:id="@+id/coller2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="色"
+        android:text="赤"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
@@ -82,7 +82,7 @@
         android:id="@+id/coller3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="色"
+        android:text="黄"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.721"
@@ -94,7 +94,7 @@
         android:id="@+id/coller4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="色"
+        android:text="青"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.993"
