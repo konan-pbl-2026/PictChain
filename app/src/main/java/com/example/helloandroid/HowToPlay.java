@@ -1,3 +1,4 @@
+
 package com.example.helloandroid;
 
 import android.graphics.Color;
@@ -27,17 +28,8 @@ public class HowToPlay extends AppCompatActivity {
         // 画面全体
         FrameLayout root = new FrameLayout(this);
 
-        // 明るいブルーとパープルの背景
-        GradientDrawable background = new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(210, 237, 255),
-                        Color.rgb(232, 229, 255),
-                        Color.rgb(245, 239, 255)
-                }
-        );
-
-        root.setBackground(background);
+        // 最背面の背景画像
+        root.setBackgroundResource(R.drawable.bg_display);
 
         // 背景の装飾
         addDecoration(root, "✦", 38,
@@ -125,7 +117,7 @@ public class HowToPlay extends AppCompatActivity {
         addHeading(content, "01　最初の人が絵を描く", false);
 
         addBody(content,
-                "最初はランダムでアルファベットが1文字表示されます。最初の人はその文字から始まる英単語を考えて、言葉を表す絵を描きます。");
+                "最初の人は、好きな英単語を1つ決めて、その言葉を表す絵を描きます。");
 
         // STEP 2
         addHeading(content, "02　次の人に交代する", true);
@@ -239,11 +231,7 @@ public class HowToPlay extends AppCompatActivity {
         backButton.setBackground(buttonBackground);
         backButton.setElevation(dp(5));
 
-        // ★ ここでクリック音を鳴らすように修正！
-        backButton.setOnClickListener(v -> {
-            SoundPlayer.play(v.getContext());
-            finish();
-        });
+        backButton.setOnClickListener(v -> finish());
 
         LinearLayout.LayoutParams buttonParams =
                 new LinearLayout.LayoutParams(
