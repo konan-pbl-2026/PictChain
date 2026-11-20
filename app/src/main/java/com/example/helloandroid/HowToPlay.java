@@ -125,7 +125,7 @@ public class HowToPlay extends AppCompatActivity {
         addHeading(content, "01　最初の人が絵を描く", false);
 
         addBody(content,
-                "最初の人は、好きな英単語を1つ決めて、その言葉を表す絵を描きます。");
+                "最初はランダムでアルファベットが1文字表示されます。最初の人はその文字から始まる英単語を考えて、言葉を表す絵を描きます。");
 
         // STEP 2
         addHeading(content, "02　次の人に交代する", true);
