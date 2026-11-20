@@ -1,3 +1,4 @@
+
 package com.example.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,8 +28,19 @@ public class DrawDisplay extends AppCompatActivity {
 
     private DrawingView drawingView;
 
-    // 消しゴムの初期サイズ
+    // ペン・消しゴムの初期サイズ
+    private float penWidth = 12f;
     private float eraserWidth = 30f;
+
+    // 現在選択されているツール
+    private static final int TOOL_NONE = 0;
+    private static final int TOOL_BLACK = 1;
+    private static final int TOOL_RED = 2;
+    private static final int TOOL_YELLOW = 3;
+    private static final int TOOL_BLUE = 4;
+    private static final int TOOL_ERASER = 5;
+
+    private int selectedTool = TOOL_NONE;
 
     // dpをpxに変換
     private int dp(float value) {
@@ -47,8 +59,11 @@ public class DrawDisplay extends AppCompatActivity {
         drawingView = findViewById(R.id.drawingView);
 
         // ゲーム情報
-        int playerCount =
+        int receivedPlayerCount =
                 getIntent().getIntExtra("playerCount", 6);
+
+        final int playerCount =
+                receivedPlayerCount > 0 ? receivedPlayerCount : 6;
 
         int roundCount =
                 getIntent().getIntExtra("roundCount", 1);
@@ -97,61 +112,71 @@ public class DrawDisplay extends AppCompatActivity {
         // ホームボタン
         Button homeButton = findViewById(R.id.homeButton);
 
-        // 色変更
+
+        // =========================
+        // 色ボタン
+        // =========================
+
         blackButton.setOnClickListener(v -> {
-            SoundPlayer.play(v.getContext());
-            drawingView.setDrawColor(Color.BLACK);
-            drawingView.setWidth(12f);
+            selectPen(TOOL_BLACK, Color.BLACK);
         });
 
         redButton.setOnClickListener(v -> {
-            SoundPlayer.play(v.getContext());
-            drawingView.setDrawColor(Color.RED);
-            drawingView.setWidth(12f);
+            selectPen(TOOL_RED, Color.RED);
         });
 
         yellowButton.setOnClickListener(v -> {
-            SoundPlayer.play(v.getContext());
-            drawingView.setDrawColor(Color.YELLOW);
-            drawingView.setWidth(12f);
+            selectPen(TOOL_YELLOW, Color.YELLOW);
         });
 
         blueButton.setOnClickListener(v -> {
-            SoundPlayer.play(v.getContext());
-            drawingView.setDrawColor(Color.BLUE);
-            drawingView.setWidth(12f);
+            selectPen(TOOL_BLUE, Color.BLUE);
         });
 
+
+        // =========================
         // 消しゴム
+        // =========================
+
         eraserButton.setOnClickListener(v -> {
-            SoundPlayer.play(v.getContext());
-
-            drawingView.setEraser();
-            drawingView.setWidth(eraserWidth);
-
-            // 消しゴムのサイズ変更画面
-            showEraserSizeDialog();
+            selectEraser();
         });
 
+
+        // =========================
         // 全消去
+        // =========================
+
         eraseAllButton.setOnClickListener(v -> {
             SoundPlayer.play(v.getContext());
             drawingView.clearCanvas();
         });
 
+
+        // =========================
         // 一手戻る
+        // =========================
+
         backButton.setOnClickListener(v -> {
             SoundPlayer.play(v.getContext());
             drawingView.undo();
         });
 
+
+        // =========================
         // 一手進む
+        // =========================
+
         moveOnButton.setOnClickListener(v -> {
             SoundPlayer.play(v.getContext());
             drawingView.redo();
         });
 
+
+        // =========================
         // ホームボタン
+        // =========================
+
         homeButton.setOnClickListener(v -> {
             SoundPlayer.play(v.getContext());
 
@@ -184,7 +209,11 @@ public class DrawDisplay extends AppCompatActivity {
                     .show();
         });
 
+
+        // =========================
         // 前の人の画像
+        // =========================
+
         String previousImagePath =
                 getIntent().getStringExtra("previousImagePath");
 
@@ -221,7 +250,8 @@ public class DrawDisplay extends AppCompatActivity {
                     previousImage.setImageBitmap(bitmap);
 
                     previousImage.setScaleType(
-                            ImageView.ScaleType.FIT_CENTER);
+                            ImageView.ScaleType.FIT_CENTER
+                    );
 
                     // 黒い枠線
                     GradientDrawable border = new GradientDrawable();
@@ -232,12 +262,13 @@ public class DrawDisplay extends AppCompatActivity {
                     previousImage.setBackground(border);
 
                     previousImage.setPadding(
-                            dp(4), dp(4), dp(4), dp(4));
+                            dp(4), dp(4), dp(4), dp(4)
+                    );
 
                     ConstraintLayout root =
                             (ConstraintLayout) drawingView.getParent();
 
-                    // 通常の表示位置（消しゴムの右側の空きスペースに配置）
+                    // 通常の表示位置
                     ConstraintLayout.LayoutParams normalParams =
                             new ConstraintLayout.LayoutParams(
                                     dp(90),
@@ -315,7 +346,11 @@ public class DrawDisplay extends AppCompatActivity {
             }
         }
 
+
+        // =========================
         // 完了ボタン
+        // =========================
+
         completeButton.setOnClickListener(v -> {
             SoundPlayer.play(v.getContext());
 
@@ -380,32 +415,92 @@ public class DrawDisplay extends AppCompatActivity {
             intent.putExtra("previousImagePath", imagePath);
 
             intent.putStringArrayListExtra(
-                    "pictureNames", pictureNames);
+                    "pictureNames", pictureNames
+            );
 
             intent.putStringArrayListExtra(
-                    "imagePaths", imagePaths);
+                    "imagePaths", imagePaths
+            );
 
             startActivity(intent);
         });
     }
 
-    // 消しゴムの大きさを変更する画面
-    private void showEraserSizeDialog() {
+
+    // =================================
+    // ペンを選択する処理
+    // =================================
+
+    private void selectPen(int tool, int color) {
+
+        SoundPlayer.play(this);
+
+        // すでに選択されている色を押した場合
+        if (selectedTool == tool) {
+
+            // ペンのサイズ変更画面を開く
+            showSizeDialog(false);
+
+            return;
+        }
+
+        // 違う色が押された場合
+        selectedTool = tool;
+
+        drawingView.setDrawColor(color);
+        drawingView.setWidth(penWidth);
+    }
+
+
+    // =================================
+    // 消しゴムを選択する処理
+    // =================================
+
+    private void selectEraser() {
+
+        SoundPlayer.play(this);
+
+        // すでに消しゴムが選択されている場合
+        if (selectedTool == TOOL_ERASER) {
+
+            // 消しゴムのサイズ変更画面を開く
+            showSizeDialog(true);
+
+            return;
+        }
+
+        // 消しゴムに切り替える
+        selectedTool = TOOL_ERASER;
+
+        drawingView.setEraser();
+        drawingView.setWidth(eraserWidth);
+    }
+
+
+    // =================================
+    // ペン・消しゴムのサイズ変更画面
+    // =================================
+
+    private void showSizeDialog(boolean isEraser) {
 
         // 変更前のサイズを保存
-        final float oldWidth = eraserWidth;
+        final float oldWidth =
+                isEraser ? eraserWidth : penWidth;
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
         layout.setPadding(
-                dp(20), dp(15), dp(20), dp(10));
+                dp(20), dp(15), dp(20), dp(10)
+        );
 
         // サイズ表示
         TextView sizeText = new TextView(this);
 
         sizeText.setText(
-                "消しゴムの大きさ：" + (int) eraserWidth);
+                (isEraser ? "消しゴム" : "ペン") +
+                        "の大きさ：" + (int) oldWidth
+        );
 
         sizeText.setTextSize(18);
         sizeText.setTextColor(Color.BLACK);
@@ -416,7 +511,7 @@ public class DrawDisplay extends AppCompatActivity {
         SeekBar seekBar = new SeekBar(this);
 
         seekBar.setMax(55);
-        seekBar.setProgress((int) eraserWidth - 5);
+        seekBar.setProgress((int) oldWidth - 5);
 
         layout.addView(seekBar);
 
@@ -432,6 +527,7 @@ public class DrawDisplay extends AppCompatActivity {
 
         layout.addView(explanation);
 
+
         // スライダーを動かしたとき
         seekBar.setOnSeekBarChangeListener(
                 new SeekBar.OnSeekBarChangeListener() {
@@ -443,16 +539,26 @@ public class DrawDisplay extends AppCompatActivity {
                             boolean fromUser) {
 
                         // 5～60の範囲にする
-                        eraserWidth = progress + 5;
+                        float newWidth = progress + 5;
 
+                        if (isEraser) {
+
+                            eraserWidth = newWidth;
+
+                            drawingView.setEraser();
+
+                        } else {
+
+                            penWidth = newWidth;
+                        }
+
+                        drawingView.setWidth(newWidth);
+
+                        // サイズ表示を更新
                         sizeText.setText(
-                                "消しゴムの大きさ：" +
-                                        (int) eraserWidth
+                                (isEraser ? "消しゴム" : "ペン") +
+                                        "の大きさ：" + (int) newWidth
                         );
-
-                        // 消しゴムの大きさを変更
-                        drawingView.setEraser();
-                        drawingView.setWidth(eraserWidth);
                     }
 
                     @Override
@@ -465,32 +571,55 @@ public class DrawDisplay extends AppCompatActivity {
                 }
         );
 
+
         // ダイアログを作成
         AlertDialog dialog =
                 new AlertDialog.Builder(this)
-                        .setTitle("消しゴムの大きさ")
+                        .setTitle(
+                                isEraser
+                                        ? "消しゴムの大きさ"
+                                        : "ペンの太さ"
+                        )
+
                         .setView(layout)
 
                         .setPositiveButton("決定", (d, which) -> {
-                            drawingView.setEraser();
-                            drawingView.setWidth(eraserWidth);
+
+                            if (isEraser) {
+                                drawingView.setEraser();
+                                drawingView.setWidth(eraserWidth);
+                            } else {
+                                drawingView.setWidth(penWidth);
+                            }
                         })
 
                         .setNegativeButton("キャンセル", (d, which) -> {
-                            eraserWidth = oldWidth;
 
-                            drawingView.setEraser();
-                            drawingView.setWidth(eraserWidth);
+                            // 変更前のサイズに戻す
+                            if (isEraser) {
+                                eraserWidth = oldWidth;
+                                drawingView.setEraser();
+                            } else {
+                                penWidth = oldWidth;
+                            }
+
+                            drawingView.setWidth(oldWidth);
                         })
 
                         .create();
 
-        // ダイアログを閉じた場合も元の大きさに戻す
-        dialog.setOnCancelListener(d -> {
-            eraserWidth = oldWidth;
 
-            drawingView.setEraser();
-            drawingView.setWidth(eraserWidth);
+        // ダイアログ外から閉じた場合も元に戻す
+        dialog.setOnCancelListener(d -> {
+
+            if (isEraser) {
+                eraserWidth = oldWidth;
+                drawingView.setEraser();
+            } else {
+                penWidth = oldWidth;
+            }
+
+            drawingView.setWidth(oldWidth);
         });
 
         dialog.show();
