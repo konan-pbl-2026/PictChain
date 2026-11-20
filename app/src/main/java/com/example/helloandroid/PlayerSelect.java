@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import android.content.Intent;
@@ -39,6 +38,9 @@ public class PlayerSelect extends AppCompatActivity {
 
         startButton.setOnClickListener(v -> {
 
+            // クリック音
+            SoundPlayer.play(v.getContext());
+
             // 選択した人数
             int playerCount =
                     playerPicker.getValue();
@@ -47,19 +49,23 @@ public class PlayerSelect extends AppCompatActivity {
             int roundCount =
                     roundPicker.getValue();
 
-            // お絵描き画面へ移動
+            // 最初のお題をランダムに決める
+            String initialLetter =
+                    InitialLetter.getRandomLetter();
+
+            // お題表示画面へ移動
             Intent intent = new Intent(
                     PlayerSelect.this,
-                    DrawDisplay.class
+                    WordPrompt.class
             );
 
-            // 人数と周回数を渡す
+            // ゲーム情報を渡す
             intent.putExtra("playerCount", playerCount);
             intent.putExtra("roundCount", roundCount);
-
-            // 最初のターン
             intent.putExtra("currentTurn", 0);
+            intent.putExtra("initialLetter", initialLetter);
 
+            // 画面遷移
             startActivity(intent);
         });
     }

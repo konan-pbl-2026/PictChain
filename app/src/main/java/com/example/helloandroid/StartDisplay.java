@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import android.content.Intent;
@@ -15,10 +14,16 @@ public class StartDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_display);
 
+        // ★この1行を追加！
+        BgmPlayer.start(this);
+
         // ゲームスタートボタン
         Button startButton = findViewById(R.id.start);
 
         startButton.setOnClickListener(v -> {
+            // ★ここでクリック音を鳴らす！
+            SoundPlayer.play(v.getContext());
+
             Intent intent = new Intent(
                     StartDisplay.this,
                     PlayerSelect.class
@@ -30,6 +35,9 @@ public class StartDisplay extends AppCompatActivity {
         Button howToPlayButton = findViewById(R.id.HowToPlay);
 
         howToPlayButton.setOnClickListener(v -> {
+            // ★ここでもクリック音を鳴らす！
+            SoundPlayer.play(v.getContext());
+
             Intent intent = new Intent(
                     StartDisplay.this,
                     HowToPlay.class
@@ -38,4 +46,3 @@ public class StartDisplay extends AppCompatActivity {
         });
     }
 }
-

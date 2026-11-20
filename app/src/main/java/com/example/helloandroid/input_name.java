@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class input_name extends AppCompatActivity {
 
@@ -32,6 +32,10 @@ public class input_name extends AppCompatActivity {
         int currentTurn =
                 getIntent().getIntExtra("currentTurn", 0);
 
+        // 最初のお題
+        String initialLetter =
+                getIntent().getStringExtra("initialLetter");
+
         // 今回描いた画像の保存場所
         String imagePath =
                 getIntent().getStringExtra("previousImagePath");
@@ -53,15 +57,60 @@ public class input_name extends AppCompatActivity {
                         ? receivedPaths
                         : new ArrayList<>();
 
+        // 決定ボタン
         decideButton.setOnClickListener(v -> {
 
-            String name = nameInput.getText().toString().trim();
+            SoundPlayer.play(v.getContext());
 
+            String name = nameInput.getText()
+                    .toString()
+                    .trim()
+                    .toLowerCase(Locale.ROOT);
+
+            // 空欄チェック
             if (name.isEmpty()) {
                 Toast.makeText(this,
                         "絵の名前を入力してください",
                         Toast.LENGTH_SHORT).show();
                 return;
+            }
+
+            // アルファベットチェック
+            if (!name.matches("[a-z]+")) {
+                Toast.makeText(this,
+                        "英語のアルファベットで入力してください",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // 1人目だけ最初のお題を判定
+            if (currentTurn == 0) {
+
+                if (initialLetter == null
+                        || !name.startsWith(
+                        initialLetter.toLowerCase(Locale.ROOT))) {
+
+                    Toast.makeText(this,
+                            initialLetter + "から始まる英単語を入力してください",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            // 2人目以降は前の単語とのしりとりを判定
+            if (currentTurn > 0) {
+
+                if (pictureNames.isEmpty()
+                        || !WordChainChecker.checkWord(
+                        pictureNames.get(pictureNames.size() - 1),
+                        name)) {
+
+                    Toast.makeText(this,
+                            "前の単語の最後の文字から始まる英単語を入力してください",
+                            Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
             }
 
             // 名前と画像を保存
@@ -89,6 +138,7 @@ public class input_name extends AppCompatActivity {
 
                 intent.putExtra("playerCount", playerCount);
                 intent.putExtra("roundCount", roundCount);
+                intent.putExtra("initialLetter", initialLetter);
 
                 startActivity(intent);
 
@@ -106,6 +156,9 @@ public class input_name extends AppCompatActivity {
 
                 intent.putExtra("previousImagePath", imagePath);
 
+                // お題も引き継ぐ
+                intent.putExtra("initialLetter", initialLetter);
+
                 intent.putStringArrayListExtra(
                         "pictureNames", pictureNames);
 
@@ -116,7 +169,12 @@ public class input_name extends AppCompatActivity {
             }
         });
 
-        // 戻る
-        backButton.setOnClickListener(v -> finish());
+        // 描き直すボタン
+        backButton.setOnClickListener(v -> {
+
+            SoundPlayer.play(v.getContext());
+
+            finish();
+        });
     }
 }
