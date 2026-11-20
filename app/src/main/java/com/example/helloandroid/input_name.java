@@ -97,22 +97,6 @@ public class input_name extends AppCompatActivity {
                 }
             }
 
-            // 2人目以降は前の単語とのしりとりを判定
-            if (currentTurn > 0) {
-
-                if (pictureNames.isEmpty()
-                        || !WordChainChecker.checkWord(
-                        pictureNames.get(pictureNames.size() - 1),
-                        name)) {
-
-                    Toast.makeText(this,
-                            "前の単語の最後の文字から始まる英単語を入力してください",
-                            Toast.LENGTH_SHORT).show();
-
-                    return;
-                }
-            }
-
             // 名前と画像を保存
             pictureNames.add(name);
 
