@@ -86,42 +86,60 @@ public class DrawDisplay extends AppCompatActivity {
         Button homeButton = findViewById(R.id.homeButton);
 
         // 色変更
-        blackButton.setOnClickListener(v ->
-                drawingView.setDrawColor(Color.BLACK));
+        blackButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
+            drawingView.setDrawColor(Color.BLACK);
+        });
 
-        redButton.setOnClickListener(v ->
-                drawingView.setDrawColor(Color.RED));
+        redButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
+            drawingView.setDrawColor(Color.RED);
+        });
 
-        yellowButton.setOnClickListener(v ->
-                drawingView.setDrawColor(Color.YELLOW));
+        yellowButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
+            drawingView.setDrawColor(Color.YELLOW);
+        });
 
-        blueButton.setOnClickListener(v ->
-                drawingView.setDrawColor(Color.BLUE));
+        blueButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
+            drawingView.setDrawColor(Color.BLUE);
+        });
 
         // 消しゴム
-        eraserButton.setOnClickListener(v ->
-                drawingView.setEraser());
+        eraserButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
+            drawingView.setEraser();
+        });
 
         // 全消去
-        eraseAllButton.setOnClickListener(v ->
-                drawingView.clearCanvas());
+        eraseAllButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
+            drawingView.clearCanvas();
+        });
 
         // 一手戻る
-        backButton.setOnClickListener(v ->
-                drawingView.undo());
+        backButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
+            drawingView.undo();
+        });
 
         // 一手進む
-        moveOnButton.setOnClickListener(v ->
-                drawingView.redo());
+        moveOnButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
+            drawingView.redo();
+        });
 
         // ホームボタン
         homeButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
 
             new AlertDialog.Builder(DrawDisplay.this)
                     .setTitle("確認")
                     .setMessage("本当にホームに戻りますか？")
 
                     .setPositiveButton("OK", (dialog, which) -> {
+                        SoundPlayer.play(DrawDisplay.this);
 
                         Intent intent = new Intent(
                                 DrawDisplay.this,
@@ -140,6 +158,7 @@ public class DrawDisplay extends AppCompatActivity {
                     })
 
                     .setNegativeButton("NO", (dialog, which) -> {
+                        SoundPlayer.play(DrawDisplay.this);
                         dialog.dismiss();
                     })
 
@@ -281,6 +300,7 @@ public class DrawDisplay extends AppCompatActivity {
         ImageButton completeButton = findViewById(R.id.complete);
 
         completeButton.setOnClickListener(v -> {
+            SoundPlayer.play(v.getContext());
 
             String imagePath = null;
 

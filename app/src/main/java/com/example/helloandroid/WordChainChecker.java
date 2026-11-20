@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import java.util.ArrayList;
@@ -33,10 +32,7 @@ public class WordChainChecker {
             return false;
         }
 
-        // nで終わる単語は失敗
-        if (previous.endsWith("n")) {
-            return false;
-        }
+        // ※「Nで終わったら失敗」のルールは遊び方の説明に合わせて削除しました！
 
         // 最後の文字と最初の文字を比較
         char last = previous.charAt(previous.length() - 1);

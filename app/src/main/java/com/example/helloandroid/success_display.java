@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -91,6 +90,8 @@ public class success_display extends AppCompatActivity {
 
         // 絵を見るボタン
         pictureButton.setOnClickListener(v -> {
+            // ★ここでクリック音を鳴らす！
+            SoundPlayer.play(v.getContext());
 
             Intent intent = new Intent(
                     success_display.this,
@@ -115,6 +116,8 @@ public class success_display extends AppCompatActivity {
         Button retryButton = findViewById(R.id.retryButton);
 
         retryButton.setOnClickListener(v -> {
+            // ★ここでもクリック音を鳴らす！
+            SoundPlayer.play(v.getContext());
 
             Intent intent = new Intent(
                     success_display.this,
@@ -135,6 +138,8 @@ public class success_display extends AppCompatActivity {
         Button homeButton = findViewById(R.id.homeButton);
 
         homeButton.setOnClickListener(v -> {
+            // ★ここでもクリック音を鳴らす！
+            SoundPlayer.play(v.getContext());
 
             Intent intent = new Intent(
                     success_display.this,
@@ -152,5 +157,3 @@ public class success_display extends AppCompatActivity {
 
     }
 }
-
-

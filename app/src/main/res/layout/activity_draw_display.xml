@@ -74,28 +74,22 @@
     <!-- 5. 黒ペン -->
     <ImageButton
         android:id="@+id/coller1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/btn_pen_black"
-        android:contentDescription="黒"
-        android:background="?android:attr/selectableItemBackground"
-        android:scaleType="fitCenter"
+        android:layout_width="92dp"
+        android:layout_height="48dp"
+        android:text="黒"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintHorizontal_bias="0.166"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774" />
+        app:layout_constraintVertical_bias="0.78" />
 
     <!-- 6. 赤ペン -->
     <ImageButton
         android:id="@+id/coller2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/btn_pen_red"
-        android:contentDescription="赤"
-        android:background="?android:attr/selectableItemBackground"
-        android:scaleType="fitCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="赤"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
@@ -106,12 +100,9 @@
     <!-- 7. 黄ペン -->
     <ImageButton
         android:id="@+id/coller3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/btn_pen_yellow"
-        android:contentDescription="黄"
-        android:background="?android:attr/selectableItemBackground"
-        android:scaleType="fitCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="黄"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.721"
@@ -122,12 +113,9 @@
     <!-- 8. 青ペン -->
     <ImageButton
         android:id="@+id/coller4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/btn_pen_blue"
-        android:contentDescription="青"
-        android:background="?android:attr/selectableItemBackground"
-        android:scaleType="fitCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="青"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.993"
