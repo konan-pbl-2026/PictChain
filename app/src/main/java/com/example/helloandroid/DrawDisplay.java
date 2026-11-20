@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +37,8 @@ public class DrawDisplay extends AppCompatActivity {
     private static final int TOOL_RED = 2;
     private static final int TOOL_YELLOW = 3;
     private static final int TOOL_BLUE = 4;
-    private static final int TOOL_ERASER = 5;
+    private static final int TOOL_GREEN = 5;
+    private static final int TOOL_ERASER = 6;
 
     private int selectedTool = TOOL_NONE;
 
@@ -97,6 +97,7 @@ public class DrawDisplay extends AppCompatActivity {
         ImageButton redButton = findViewById(R.id.coller2);
         ImageButton yellowButton = findViewById(R.id.coller3);
         ImageButton blueButton = findViewById(R.id.coller4);
+        ImageButton greenButton = findViewById(R.id.coller5);
 
         // 消しゴム・全消去
         ImageButton eraserButton = findViewById(R.id.eraser);
@@ -133,6 +134,10 @@ public class DrawDisplay extends AppCompatActivity {
             selectPen(TOOL_BLUE, Color.BLUE);
         });
 
+        // 緑ペン
+        greenButton.setOnClickListener(v -> {
+            selectPen(TOOL_GREEN, Color.rgb(0, 128, 0));
+        });
 
         // =========================
         // 消しゴム
@@ -345,8 +350,6 @@ public class DrawDisplay extends AppCompatActivity {
                 }
             }
         }
-
-
         // =========================
         // 完了ボタン
         // =========================
@@ -570,8 +573,6 @@ public class DrawDisplay extends AppCompatActivity {
                     }
                 }
         );
-
-
         // ダイアログを作成
         AlertDialog dialog =
                 new AlertDialog.Builder(this)
