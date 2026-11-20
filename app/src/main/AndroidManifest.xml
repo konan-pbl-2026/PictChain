@@ -34,8 +34,12 @@
         <activity
             android:name=".success_display" />
         <activity
+            android:name=".WordPrompt"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

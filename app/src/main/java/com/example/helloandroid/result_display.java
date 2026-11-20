@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class result_display extends AppCompatActivity {
 
@@ -18,9 +19,11 @@ public class result_display extends AppCompatActivity {
         Button resultButton = findViewById(R.id.button3);
 
         resultButton.setOnClickListener(v -> {
-            // ★ここでクリック音を鳴らす！
+
+            // クリック音
             SoundPlayer.play(v.getContext());
 
+            // 単語リストを取得
             ArrayList<String> pictureNames =
                     getIntent().getStringArrayListExtra("pictureNames");
 
@@ -31,15 +34,49 @@ public class result_display extends AppCompatActivity {
                 pictureNames = new ArrayList<>();
             }
 
+            if (imagePaths == null) {
+                imagePaths = new ArrayList<>();
+            }
+
+            // 最初のお題を取得
+            String initialLetter =
+                    getIntent().getStringExtra("initialLetter");
+
             int successCount = 0;
 
+            // ① 最初のお題と1人目の単語を判定
+            if (!pictureNames.isEmpty()
+                    && initialLetter != null
+                    && pictureNames.get(0) != null) {
+
+                String firstWord = pictureNames.get(0)
+                        .trim()
+                        .toLowerCase(Locale.ROOT);
+
+                String letter = initialLetter
+                        .trim()
+                        .toLowerCase(Locale.ROOT);
+
+                if (!firstWord.isEmpty()
+                        && !letter.isEmpty()
+                        && firstWord.startsWith(letter)) {
+
+                    successCount++;
+                }
+            }
+
+            // ② 2人目以降のしりとりを判定
             for (int i = 0; i < pictureNames.size() - 1; i++) {
 
-                String first = pictureNames.get(i)
-                        .trim().toLowerCase();
+                String first = pictureNames.get(i);
+                String second = pictureNames.get(i + 1);
 
-                String second = pictureNames.get(i + 1)
-                        .trim().toLowerCase();
+                if (first == null || second == null) {
+                    continue;
+                }
+
+                first = first.trim().toLowerCase(Locale.ROOT);
+                second = second.trim().toLowerCase(Locale.ROOT);
 
                 if (!first.isEmpty() && !second.isEmpty()) {
 
@@ -52,8 +89,10 @@ public class result_display extends AppCompatActivity {
                 }
             }
 
-            int totalCount = Math.max(0, pictureNames.size() - 1);
+            // ③ 判定回数
+            int totalCount = pictureNames.size();
 
+            // ④ 成功率
             int percentage = 0;
 
             if (totalCount > 0) {
@@ -62,6 +101,7 @@ public class result_display extends AppCompatActivity {
                 );
             }
 
+            // 結果画面へ移動
             Intent intent = new Intent(
                     result_display.this,
                     success_display.class
@@ -70,6 +110,8 @@ public class result_display extends AppCompatActivity {
             intent.putExtra("successCount", successCount);
             intent.putExtra("totalCount", totalCount);
             intent.putExtra("percentage", percentage);
+
+            intent.putExtra("initialLetter", initialLetter);
 
             intent.putStringArrayListExtra(
                     "pictureNames", pictureNames);
