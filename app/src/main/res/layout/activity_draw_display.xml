@@ -8,17 +8,16 @@
     tools:context=".DrawDisplay">
 
     <!-- 何人目か -->
-    <!-- 何人目か -->
     <TextView
         android:id="@+id/playerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:background="#99000000"
+        android:background="#FFFFFF"
         android:paddingHorizontal="14dp"
         android:paddingVertical="6dp"
         android:text="1人目"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/homeButton"
@@ -32,11 +31,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="#99000000"
+        android:background="#FFFFFF"
         android:paddingHorizontal="14dp"
         android:paddingVertical="6dp"
         android:text="1周目"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/homeButton"
@@ -44,6 +43,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/playerText"
         app:layout_constraintTop_toTopOf="@id/homeButton" />
+
     <!-- ホームボタン -->
     <Button
         android:id="@+id/homeButton"
@@ -139,15 +139,30 @@
         app:layout_constraintBottom_toTopOf="@id/colorToolbar"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- 下部ペン色選択ボタン（黒・赤・青・黄） -->
+    <!-- パレット画像（colorToolbarの直前に書くことでペンの下に敷かれます） -->
+    <ImageView
+        android:id="@+id/paletteBg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="パレット"
+        android:scaleType="fitXY"
+        android:src="@drawable/palette"
+        app:layout_constraintBottom_toBottomOf="@id/colorToolbar"
+        app:layout_constraintEnd_toEndOf="@id/colorToolbar"
+        app:layout_constraintStart_toStartOf="@id/colorToolbar"
+        app:layout_constraintTop_toTopOf="@id/colorToolbar" />
+
+    <!-- 下部ペン色選択ボタン（黒・赤・青・黄・緑） -->
     <LinearLayout
         android:id="@+id/colorToolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -155,8 +170,8 @@
         <!-- 5. 黒ペン -->
         <ImageButton
             android:id="@+id/coller1"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="黒"
             android:scaleType="centerCrop"
@@ -170,8 +185,8 @@
         <!-- 6. 赤ペン -->
         <ImageButton
             android:id="@+id/coller2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="赤"
             android:scaleType="centerCrop"
@@ -185,8 +200,8 @@
         <!-- 8. 青ペン -->
         <ImageButton
             android:id="@+id/coller4"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="青"
             android:scaleType="centerCrop"
@@ -200,12 +215,27 @@
         <!-- 7. 黄ペン -->
         <ImageButton
             android:id="@+id/coller3"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="黄"
             android:scaleType="centerCrop"
             android:src="@drawable/yellow" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <!-- 10. 緑ペン -->
+        <ImageButton
+            android:id="@+id/coller5"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="緑"
+            android:scaleType="centerCrop"
+            android:src="@drawable/green" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
