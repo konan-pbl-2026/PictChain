@@ -57,6 +57,10 @@ public class DrawDisplay extends AppCompatActivity {
         int currentTurn =
                 getIntent().getIntExtra("currentTurn", 0);
 
+        // 最初のお題のアルファベット
+        String initialLetter =
+                getIntent().getStringExtra("initialLetter");
+
         // 人数・週数を計算
         int playerNumber =
                 (currentTurn % playerCount) + 1;
@@ -372,6 +376,9 @@ public class DrawDisplay extends AppCompatActivity {
             intent.putExtra("playerCount", playerCount);
             intent.putExtra("roundCount", roundCount);
             intent.putExtra("currentTurn", currentTurn);
+
+// 最初のお題を引き継ぐ
+            intent.putExtra("initialLetter", initialLetter);
 
             intent.putExtra("previousImagePath", imagePath);
 

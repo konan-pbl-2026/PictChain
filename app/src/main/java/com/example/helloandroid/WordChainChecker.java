@@ -1,7 +1,6 @@
 package com.example.helloandroid;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class WordChainChecker {
@@ -21,7 +20,6 @@ public class WordChainChecker {
         String current = currentWord.trim()
                 .toLowerCase(Locale.ROOT);
 
-        // 空欄チェック
         if (previous.isEmpty() || current.isEmpty()) {
             return false;
         }
@@ -32,21 +30,35 @@ public class WordChainChecker {
             return false;
         }
 
-        // ※「Nで終わったら失敗」のルールは遊び方の説明に合わせて削除しました！
-
-        // 最後の文字と最初の文字を比較
         char last = previous.charAt(previous.length() - 1);
         char first = current.charAt(0);
 
         return last == first;
     }
 
-    // 単語リスト全体の成功数を数える
+    // 単語リスト全体の成功数
+    // 最初のお題も含めて成功数を数える
     public static int countSuccess(
-            ArrayList<String> words) {
+            ArrayList<String> words,
+            String initialLetter) {
 
         int successCount = 0;
 
+        if (words == null || words.isEmpty()
+                || initialLetter == null) {
+            return 0;
+        }
+
+        // 1人目の単語と最初のお題を判定
+        if (words.get(0) != null
+                && words.get(0).trim()
+                .toLowerCase(Locale.ROOT)
+                .startsWith(initialLetter.toLowerCase(Locale.ROOT))) {
+
+            successCount++;
+        }
+
+        // 2人目以降のしりとりを判定
         for (int i = 1; i < words.size(); i++) {
 
             if (checkWord(words.get(i - 1), words.get(i))) {
