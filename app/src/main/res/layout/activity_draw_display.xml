@@ -8,14 +8,18 @@
     tools:context=".DrawDisplay">
 
     <!-- 何人目か -->
+    <!-- 何人目か -->
     <TextView
         android:id="@+id/playerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/bg_status_badge"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="6dp"
         android:text="1人目"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/homeButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,15 +30,20 @@
         android:id="@+id/roundText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_status_badge"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="6dp"
         android:text="1周目"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/homeButton"
         app:layout_constraintEnd_toStartOf="@id/homeButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/playerText"
         app:layout_constraintTop_toTopOf="@id/homeButton" />
-
     <!-- ホームボタン -->
     <Button
         android:id="@+id/homeButton"
