@@ -1,4 +1,3 @@
-
 package com.example.helloandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -238,21 +237,20 @@ public class DrawDisplay extends AppCompatActivity {
                     ConstraintLayout root =
                             (ConstraintLayout) drawingView.getParent();
 
-                    // 通常の表示位置
+                    // 通常の表示位置（消しゴムの右側の空きスペースに配置）
                     ConstraintLayout.LayoutParams normalParams =
                             new ConstraintLayout.LayoutParams(
-                                    dp(130),
-                                    dp(100)
+                                    dp(90),
+                                    dp(60)
                             );
 
-                    normalParams.startToStart =
-                            ConstraintLayout.LayoutParams.PARENT_ID;
-
+                    normalParams.startToEnd = R.id.eraser;
                     normalParams.endToEnd =
                             ConstraintLayout.LayoutParams.PARENT_ID;
-
-                    normalParams.topToBottom = R.id.coller1;
-                    normalParams.topMargin = dp(8);
+                    normalParams.topToTop = R.id.eraser;
+                    normalParams.bottomToBottom = R.id.eraser;
+                    normalParams.leftMargin = dp(8);
+                    normalParams.rightMargin = dp(16);
 
                     root.addView(previousImage, normalParams);
 
@@ -292,18 +290,17 @@ public class DrawDisplay extends AppCompatActivity {
 
                                 ConstraintLayout.LayoutParams smallParams =
                                         new ConstraintLayout.LayoutParams(
-                                                dp(130),
-                                                dp(100)
+                                                dp(90),
+                                                dp(60)
                                         );
 
-                                smallParams.startToStart =
-                                        ConstraintLayout.LayoutParams.PARENT_ID;
-
+                                smallParams.startToEnd = R.id.eraser;
                                 smallParams.endToEnd =
                                         ConstraintLayout.LayoutParams.PARENT_ID;
-
-                                smallParams.topToBottom = R.id.coller1;
-                                smallParams.topMargin = dp(8);
+                                smallParams.topToTop = R.id.eraser;
+                                smallParams.bottomToBottom = R.id.eraser;
+                                smallParams.leftMargin = dp(8);
+                                smallParams.rightMargin = dp(16);
 
                                 previousImage.setLayoutParams(smallParams);
 
@@ -377,7 +374,7 @@ public class DrawDisplay extends AppCompatActivity {
             intent.putExtra("roundCount", roundCount);
             intent.putExtra("currentTurn", currentTurn);
 
-// 最初のお題を引き継ぐ
+            // 最初のお題を引き継ぐ
             intent.putExtra("initialLetter", initialLetter);
 
             intent.putExtra("previousImagePath", imagePath);
