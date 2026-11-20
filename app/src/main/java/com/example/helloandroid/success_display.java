@@ -44,7 +44,7 @@ public class success_display extends AppCompatActivity {
         if (percentage == 100 && totalCount > 0) {
 
             title.setText("CHAIN COMPLETE");
-            title.setTextColor(Color.rgb(32, 43, 60));
+            title.setTextColor(Color.rgb(255, 255, 255));
 
             message.setText("PERFECT!!");
             message.setTextColor(Color.rgb(33, 150, 210));

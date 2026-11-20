@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.view.ViewGroup;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,7 @@ public class PictureDisplay extends AppCompatActivity {
             TextView nameText = new TextView(this);
             nameText.setText((i + 1) + "枚目：" + pictureNames.get(i));
             nameText.setTextSize(20);
+            nameText.setTextColor(Color.WHITE);
             nameText.setPadding(0, 20, 0, 10);
 
             container.addView(nameText);
